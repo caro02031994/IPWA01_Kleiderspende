@@ -1,0 +1,2 @@
+# IPWA01_Kleiderspende
+Prüfungsleistung Aufgabenstellung 3 Kleiderspendenregestrierung
