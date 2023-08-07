@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kleiderspende Online Werra - Mei&szlig;ner</title>
+    <!-- CDN BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="fonts/css/all.min.css" />
+    <!-- kleines Bild in Browser:-->
     <link rel="shortcut icon" type="image/x-icon" href="logo32.ico">
        
     <!-- ICONs für Mobile Endgeräte:-->
@@ -14,7 +16,10 @@
     <link rel="icon" type="image/png" href="logo_96.png" sizes="96x96">
     <link rel="apple-touch-icon" href="logo_apple_128.png">
 
+    <!-- CDN VUE
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+-->
   </head>
   <body>
 
@@ -72,17 +77,130 @@
     </header>
 
     <main class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
-        
-      <div class="container py-md-5 px-4 px-md-3 text-start">   
 
-        <h1>Spendenregistrierung</h1>
-        <br>
+      <div id="app" class="container">
+        <h1>Spendenregestrierung</h1>
+        <form @submit.prevent="submitForm">
+          <div class="row g-3 mb-3">
+          <div class="form-group col-md-12">
+            <label for="abholung">Abgabe oder Abholung:</label>
+            <select id="abholung" class="form-control" v-model="abholung" @change="toggleAddress">
+              <option value="Abholung">Abholung zu Hause</option>
+              <option value="Abgabe">Abgabe in der Gesch&auml;ftsstelle</option>
+            </select>
+          </div>
+          <div class="form-group col-md-12">
+            <label for="gebiet">Auswahl des Kriesengebiets:</label>
+            <select id="gebiet" class="form-control" v-model="gebiet">
+              <option value="ukraine">Ukraine</option>
+              <option value="russland">Russland</option>
+              <option value="belarus">Belarus</option>
+            </select>
+          </div>
+
+          <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="baby" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Baby Kleidung (Bis 98)
+            </label>
+          </div>
+          <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="kkind" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Kleinkinder Kleidung (Bis 116)
+            </label>
+          </div>
+          <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="kind" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Kinder Kleidung
+            </label>
+            </div>
+            <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="damen" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Damen Kleidung
+            </label>
+            </div>
+            <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="herren" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Herren Kleidung
+            </label>
+            </div>
+            <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="kschuhe" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Kinder Schuhe
+            </label>
+            </div>
+            <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="dschuhe" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Damen Schuhe
+            </label>
+            </div>
+            <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="hschuhe" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Herren Schuhe
+            </label>
+            </div>
+            <div class="form-check col-md-6">
+            <input class="form-check-input" type="checkbox" value="textil" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              Wohntextilien (Bettw&auml;sche, Decken)
+            </label>
+           </div>
+          </div>
+        </div>
+        <div class="row g-3 mb-3">
+
+          <div class="form-group col-md-4">
+            <label for="anrede">Anrede:</label>
+            <select id="anrede" class="form-control" v-model="anrede">
+              <option value="Herr">Herr</option>
+              <option value="Frau">Frau</option>
+              <option value="Familie">Familie</option>
+              <option value="Divers">Divers</option>
+            </select>
+          </div>
+          <div class="form-group col-md-8">
+            <label for="name">Name:</label>
+            <input type="text" id="name" class="form-control" v-model="name">
+          </div>
+          <div class="form-group col-md-9" v-if="showAddress">
+            <label for="strasse">Straße:</label>
+            <input type="text" id="strasse" class="form-control" v-model="strasse">
+          </div>
+          <div class="form-group col-md-3" v-if="showAddress">
+            <label for="hausnummer">Hausnummer:</label>
+            <input type="text" id="hausnummer" class="form-control" v-model="hausnummer">
+          </div>
+          <div class="form-group col-md-4" v-if="showAddress">
+            <label for="plz">PLZ:</label>
+            <input type="text" id="plz" class="form-control" v-model="plz" @input="checkPLZ">
+          </div>
+          <div class="form-group col-md-8" v-if="showAddress">
+            <label for="ort">Ort:</label>
+            <input type="text" id="ort" class="form-control" v-model="ort">
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Absenden</button>
+
+            
+        </div>
+        </form>
+
 
         
-      
       </div>
 
+      </div>
+    
+     
     </main>
+
 
 
     <footer class="bd-footer  bg-light">
@@ -146,11 +264,14 @@
         <a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover text-reset fw-bold" href="index.html">kleiderspende-wmk.de</a>
       </div>
       
-    </footer>
+      <script src="https://kit.fontawesome.com/d1190ed7e0.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="app.js"></script>
+    
 
-    <script src="https://kit.fontawesome.com/d1190ed7e0.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-  
+
+  </footer>
   </body>
 </html>
