@@ -79,86 +79,86 @@
     <main class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
 
       <div id="app" class="container">
-        <h1>Spendenregestrierung</h1>
+        <h1>Spendenregistrierung</h1>
         <form @submit.prevent="submitForm">
           <div class="row g-3 mb-3">
           <div class="form-group col-md-12">
             <label for="abholung">Abgabe oder Abholung:</label>
-            <select id="abholung" class="form-control" v-model="abholung" @change="toggleAddress">
-              <option value="Abholung">Abholung zu Hause</option>
-              <option value="Abgabe">Abgabe in der Gesch&auml;ftsstelle</option>
+            <select id="abholung" class="form-control" v-model="abholung" @change="toggleAddress" required>
+              <option value="abgeholt">Abholung zu Hause</option>
+              <option value="abgegeben">Abgabe in der Gesch&auml;ftsstelle</option>
             </select>
           </div>
           <div class="form-group col-md-12">
             <label for="gebiet">Auswahl des Kriesengebiets:</label>
-            <select id="gebiet" class="form-control" v-model="gebiet">
-              <option value="ukraine">Ukraine</option>
-              <option value="russland">Russland</option>
-              <option value="belarus">Belarus</option>
+            <select id="gebiet" class="form-control" v-model="gebiet" required>
+              <option value="Ukraine">Ukraine</option>
+              <option value="Russland">Russland</option>
+              <option value="Belarus">Belarus</option>
             </select>
           </div>
 
           <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="baby" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="baby" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Baby Kleidung (Bis 98)
             </label>
           </div>
           <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="kkind" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="kkind" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Kleinkinder Kleidung (Bis 116)
             </label>
           </div>
           <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="kind" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="kind" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Kinder Kleidung
             </label>
             </div>
             <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="damen" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="damen" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Damen Kleidung
             </label>
             </div>
             <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="herren" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="herren" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Herren Kleidung
             </label>
             </div>
             <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="kschuhe" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="kschuhe" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Kinder Schuhe
             </label>
             </div>
             <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="dschuhe" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="dschuhe" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Damen Schuhe
             </label>
             </div>
             <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="hschuhe" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="hschuhe" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Herren Schuhe
             </label>
             </div>
             <div class="form-check col-md-6">
-            <input class="form-check-input" type="checkbox" value="textil" id="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" v-model="textil" id="flexCheckChecked">
             <label class="form-check-label" for="flexCheckChecked">
               Wohntextilien (Bettw&auml;sche, Decken)
             </label>
            </div>
           </div>
-        </div>
+        
         <div class="row g-3 mb-3">
 
           <div class="form-group col-md-4">
             <label for="anrede">Anrede:</label>
-            <select id="anrede" class="form-control" v-model="anrede">
+            <select id="anrede" class="form-control" v-model="anrede" required>
               <option value="Herr">Herr</option>
               <option value="Frau">Frau</option>
               <option value="Familie">Familie</option>
@@ -167,38 +167,51 @@
           </div>
           <div class="form-group col-md-8">
             <label for="name">Name:</label>
-            <input type="text" id="name" class="form-control" v-model="name">
+            <input type="text" id="name" class="form-control" v-model="name" required>
           </div>
           <div class="form-group col-md-9" v-if="showAddress">
             <label for="strasse">Straße:</label>
-            <input type="text" id="strasse" class="form-control" v-model="strasse">
+            <input type="text" id="strasse" class="form-control" v-model="strasse" required>
           </div>
           <div class="form-group col-md-3" v-if="showAddress">
             <label for="hausnummer">Hausnummer:</label>
-            <input type="text" id="hausnummer" class="form-control" v-model="hausnummer">
+            <input type="text" id="hausnummer" class="form-control" v-model="hausnummer" required>
           </div>
-          <div class="form-group col-md-4" v-if="showAddress">
+          <div class="form-group col-md-4" v-if="showAddress" required>
             <label for="plz">PLZ:</label>
-            <input type="text" id="plz" class="form-control" v-model="plz" @input="checkPLZ">
+            <input type="text" id="plz" class="form-control" minlength="5" maxlength="5" v-model="plz" @input="checkPLZ">
           </div>
-          <div class="form-group col-md-8" v-if="showAddress">
+          <div class="form-group col-md-8" v-if="showAddress" required>
             <label for="ort">Ort:</label>
             <input type="text" id="ort" class="form-control" v-model="ort">
           </div>
-          <div class="col-12">
+        </div>  
+          <div class="col-md-12 pb-3">
             <button type="submit" class="btn btn-primary">Absenden</button>
+          </div> 
 
-            
-        </div>
         </form>
 
-
+        <div v-if="submitted" class="p-3 text-success-emphasis  border border-success-subtle rounded-3">
+          <h5>Folgende Daten wurden am {{ message }} erfolgreich an uns &Uuml;bermittelt:</h2>
+          <p>Die Spende wird {{ abholung }}!</p>
+          <p>Ihr Name ist {{ anrede }} {{ name }}.</p>
+          <p v-if="showAddress">An dieser Adresse wird Ihre Spende abgeholt: {{ strasse }} {{ hausnummer }}, {{ plz }} {{ ort }}.</p>
+          <p>Ihre Spende geht nach {{ gebiet }}.</p>
+          <p>Folgende Bekleidungsarten sind in Ihrer Spende enthalten:</p>
+          <p>Babykleidung: {{ baby ? 'Ja' : 'Nein' }}</p>
+          <p>Kleinkinderkleidung: {{ kkind ? 'Ja' : 'Nein' }}</p>
+          <p>Kinderkleidung: {{ kind ? 'Ja' : 'Nein' }}</p>
+          <p>Damenkleidung: {{ damen ? 'Ja' : 'Nein' }}</p>
+          <p>Herrenkleidung: {{ herren ? 'Ja' : 'Nein' }}</p>
+          <p>Kinderschuhe: {{ kschuhe ? 'Ja' : 'Nein' }}</p>
+          <p>Damenschuhe: {{ dschuhe ? 'Ja' : 'Nein' }}</p>
+          <p>Herrenschuhe: {{ hschuhe ? 'Ja' : 'Nein' }}</p>
+          <p>Wohntextilien: {{ textil ? 'Ja' : 'Nein' }}</p>
+        
+        </div>
         
       </div>
-
-      </div>
-    
-     
     </main>
 
 
@@ -268,7 +281,7 @@
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-      <script src="app.js"></script>
+      <script src="/app.js"></script>
     
 
 
