@@ -41,7 +41,7 @@ new Vue({
             const currentDate = new Date();
             const currentTime = currentDate.toLocaleTimeString(); 
 
-      // Meldung für Zeitausgabe
+            // Meldung für Zeitausgabe
             this.message = ` ${currentDate.toLocaleDateString()} um  ${currentTime}`;
 
       
